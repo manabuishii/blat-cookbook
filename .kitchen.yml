@@ -1,0 +1,27 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: ubuntu-14.04
+
+suites:
+  - name: default
+    run_list:
+      - recipe[ubuntu-change-source-list]
+      - recipe[timezone-ii]
+      - recipe[blat-cookbook::default]
+      - recipe[test-helper]
+    attributes:
+      ubuntu:
+        mirror_site_url: http://ftp.jaist.ac.jp/pub/Linux/ubuntu/
+        version: "14.04"
+        need_deb_src: false
+        need_update: true
+      tz: "Asia/Tokyo"
+      blat:
+        installdirectory: "/opt/tools/blat/blat35/bin"
+
